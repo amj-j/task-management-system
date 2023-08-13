@@ -1,0 +1,55 @@
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registration</h2>
+        <hr />
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <form th:action="@{/registration}" th:object="${user}" method="POST">
+            <div class="form-group">
+                <label for="username" class="control-label">Username</label>
+                <br>
+                <input id="username" type="text" th:field="*{username}" required />
+            </div>
+            <div class="form-group">
+                <label for="firstName" class="control-label">First name</label>
+                <br>
+                <input id="firstName" type="text" th:field="*{firstName}" required />
+            </div>
+            <div class="form-group">
+                <label for="lastName" class="control-label">Last name</label>
+                <br>
+                <input id="lastName" type="text" th:field="*{lastName}" required />
+            </div>
+            <div class="form-group">
+                <label for="email" class="control-label">Email</label>
+                <br>
+                <input id="email" type="email" th:field="*{email}" required />
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <br>
+                <input id="password" type="password" th:field="*{password}" required />
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword" class="control-label">Confirm password</label>
+                <br>
+                <input id="confirmPassword" type="password" th:field="*{confirmPassword}" required />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Register</button>
+                <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
