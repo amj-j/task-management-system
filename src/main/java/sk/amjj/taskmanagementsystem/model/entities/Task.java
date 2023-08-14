@@ -27,8 +27,6 @@ public class Task {
 
     private String description;
 
-    private String category;
-
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 
@@ -38,4 +36,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private TaskCategory category;
 }

@@ -25,7 +25,7 @@
 
                     <tr>
                         <th>Name</th>
-                        <th>Category</th>
+                        <th><a th:href="@{/task-category/list}">Category</a></th>
                         <th>Due date</th>
                         <th>State</th>
                     </tr>
@@ -34,7 +34,7 @@
                 <tbody>
                     <tr th:each="task: ${tasks}">
                         <td th:text="${task.name}"></td>
-                        <td th:text="${task.category}"></td>
+                        <td th:text="${taskCategoryMap[task.categoryId].name}"></td>
                         <td th:text="${#dates.format(task.dueDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${task.state}"></td>                                                                   
                         <td>

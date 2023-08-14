@@ -11,8 +11,9 @@ import sk.amjj.taskmanagementsystem.enums.TaskState;
 import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
 import sk.amjj.taskmanagementsystem.model.entities.Task;
 import sk.amjj.taskmanagementsystem.model.repository.ITaskRepository;
-import sk.amjj.taskmanagementsystem.model.repository.IUserRepository;
+import sk.amjj.taskmanagementsystem.service.interfaces.ITaskCategoryService;
 import sk.amjj.taskmanagementsystem.service.interfaces.ITaskService;
+import sk.amjj.taskmanagementsystem.service.interfaces.IUserService;
 
 @Service
 public class TaskService implements ITaskService {
@@ -21,21 +22,25 @@ public class TaskService implements ITaskService {
     private ITaskRepository taskRepository;
 
     @Autowired
-    private IUserRepository userRepository;
+    private IUserService userService;
+
+    @Autowired
+    private ITaskCategoryService taskCategoryService;
 
     @Override
-    public Task create(CreateTaskDto req) {
+    public Task create(CreateTaskDto req) throws NotFoundException {
         Task task = new Task();
         task.setName(req.getName());
         task.setDescription(req.getDescription());
-        task.setCategory(req.getCategory());
+        task.setCategory(this.taskCategoryService.getById(req.getCategoryId()));
         task.setDueDate(req.getDueDate());
         task.setState(TaskState.TODO);
 
-        task.setOwner(this.userRepository.findById(req.getOwnerId()).get());
+        task.setOwner(this.userService.getById(req.getOwnerId()));
         return this.taskRepository.save(task);
     }
 
+    @Override
     public Task getById(long id) throws NotFoundException {
         Optional<Task> task = taskRepository.findById(id);
         if (task.isPresent()) {
@@ -46,6 +51,7 @@ public class TaskService implements ITaskService {
         }
     }
 
+    @Override
     public Task update(TaskDto req) throws NotFoundException {
         Task task = this.getById(req.getId());
         if (req.getName() != null) {
@@ -54,8 +60,8 @@ public class TaskService implements ITaskService {
         if (req.getDescription() != null) {
             task.setDescription(req.getDescription());
         }
-        if (req.getCategory() != null) {
-            task.setCategory(req.getCategory());
+        if (req.getCategoryId() != null) {
+            task.setCategory(this.taskCategoryService.getById(req.getCategoryId()));
         }
         if (req.getDueDate() != null) {
             task.setDueDate(req.getDueDate());
@@ -66,6 +72,7 @@ public class TaskService implements ITaskService {
         return this.taskRepository.save(task);
     }
 
+    @Override
     public void delete(long id) throws NotFoundException {
         this.taskRepository.delete(this.getById(id));
     }

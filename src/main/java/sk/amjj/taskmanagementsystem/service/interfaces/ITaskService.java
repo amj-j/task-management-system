@@ -7,7 +7,7 @@ import sk.amjj.taskmanagementsystem.model.entities.Task;
 
 public interface ITaskService {
     
-    Task create(CreateTaskDto req);
+    Task create(CreateTaskDto req) throws NotFoundException;
 
     Task getById(long id) throws NotFoundException;
 

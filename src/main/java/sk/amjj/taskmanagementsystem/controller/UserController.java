@@ -13,23 +13,24 @@ import sk.amjj.taskmanagementsystem.dto.user.UserInfoDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserUpdateDto;
 import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.UserMissingException;
-import sk.amjj.taskmanagementsystem.service.user.UserService;
+import sk.amjj.taskmanagementsystem.service.interfaces.IUserService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private ControllerHelper controllerHelper;
+
 
     @GetMapping
     public ModelAndView showUserDetails(HttpSession session) throws NotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         UserInfoDto userDto = new UserInfoDto(userService.getById(userId));
-        ModelAndView mav = new ModelAndView("user-details");
+        ModelAndView mav = new ModelAndView("user/user-details");
         mav.addObject("user", userDto);
         return mav;
     }
@@ -38,7 +39,7 @@ public class UserController {
     public ModelAndView showUserUpdateForm(HttpSession session) throws NotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         UserUpdateDto dto = new UserUpdateDto(userService.getById(userId));
-        ModelAndView mav = new ModelAndView("edit-user-form");
+        ModelAndView mav = new ModelAndView("user/edit-user-form");
         mav.addObject("user", dto);
         return mav;
     }

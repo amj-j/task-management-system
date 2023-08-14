@@ -22,27 +22,28 @@ public class ChangeUserPasswordController {
 
     @Autowired
     private ControllerHelper controllerHelper;
+    
 
     @GetMapping("/verifyCurrent")
     public String showVerifyCurrentPasswordPage() {
-        return "password-verification";
+        return "user/password-verification";
     }
 
     @PostMapping("/verifyCurrent")
     public String verifyPasswordBeforeChanging(@RequestParam("password") String password, HttpSession session, Model model) throws NotFoundException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         if (this.userService.verifyPassword(userId, password)) {
-            return "change-password";
+            return "user/change-password";
         }
         else {
             model.addAttribute("incorrectPasswordMessage", "The password you entered is incorrect!");
-            return "password-verification";
+            return "user/password-verification";
         }
     }
 
     @GetMapping
     public String showChangePasswordPage() {
-        return "change-password";
+        return "user/change-password";
     }
 
     @PostMapping
@@ -53,7 +54,7 @@ public class ChangeUserPasswordController {
         }
         catch(PasswordsDoNotMatchException ex) {
             model.addAttribute("doNotMatchMessage", "Passwords do not match!");
-            return "change-password";
+            return "user/change-password";
         }
         return "redirect:/home";
     }

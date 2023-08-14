@@ -1,17 +1,17 @@
 <html xmlns="http://www.thymeleaf.org">
 
 <head>
-    <title>Add task</title>
+    <title>Add task category</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
     <div class="container">
-        <h2>New Task</h2>
-        <form th:action="@{/task/add}" th:object="${newTask}" method="POST">
+        <h2>New task category</h2>
+        <form th:action="@{/task-category/add}" th:object="${newTaskCategory}" method="POST">
             <div class="form-group">
-                <label for="name" class="control-label">Task name</label>
+                <label for="name" class="control-label">Category name</label>
                 <br>
                 <input id="name" type="text" th:field="*{name}" required />
             </div>
@@ -20,18 +20,7 @@
                 <br>
                 <input id="description" type="text" th:field="*{description}" />
             </div>
-            <div class="form-group">
-                <label for="category" class="control-label">Category</label>
-                <br>
-                <input id="category" type="text" th:field="*{category}" />
-            </div>
-            <div class="form-group">
-                <label for="dueDate">Due Date</label>
-                <br>
-                <input type="date" id="dueDate" th:field="*{dueDate}" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Save Task</button>
-            <button type="submit" class="btn btn-primary">Save Task</button>
+            <button type="submit" class="btn btn-primary">Save Category</button>
         </form>
         <div>
             <a href="/" th:href="@{/home}">Home</a>

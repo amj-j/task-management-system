@@ -11,7 +11,7 @@ public class CreateTaskDto {
 
     private String description;
 
-    private String category;
+    private Long categoryId;
 
     private Date dueDate;
 

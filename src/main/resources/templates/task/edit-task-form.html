@@ -21,19 +21,23 @@
                 <input id="description" type="text" th:field="*{description}" />
             </div>
             <div class="form-group">
-                <label for="category" class="control-label">Category</label>
-                <br>
-                <input id="category" type="text" th:field="*{category}" />
-            </div>
-            <div class="form-group">
                 <label for="dueDate">Due Date</label>
                 <br>
                 <input type="date" id="dueDate" th:field="*{dueDate}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="category">Category:</label>
+                <label for="category">Category</label>
                 <br>
-                <select id="state" name="state" class="form-control">
+                <select th:field="*{categoryId}" id="category" class="form-control">
+                    <option th:each="taskCategory : ${taskCategories}"
+                            th:value="${taskCategory.id}" th:text="${taskCategory.name}">
+                    </option>
+                </select> 
+            </div>          
+            <div class="form-group">
+                <label for="state">State</label>
+                <br>
+                <select id="state" class="form-control">
                     <option th:each="state : ${T(sk.amjj.taskmanagementsystem.enums.TaskState).values()}"
                             th:value="${state}" th:text="${state}"></option>
                 </select>

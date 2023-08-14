@@ -1,5 +1,7 @@
 package sk.amjj.taskmanagementsystem.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,8 @@ import sk.amjj.taskmanagementsystem.dto.task.CreateTaskDto;
 import sk.amjj.taskmanagementsystem.dto.task.TaskDto;
 import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.UserMissingException;
+import sk.amjj.taskmanagementsystem.model.entities.TaskCategory;
+import sk.amjj.taskmanagementsystem.service.interfaces.ITaskCategoryService;
 import sk.amjj.taskmanagementsystem.service.interfaces.ITaskService;
 
 @Controller
@@ -24,20 +28,30 @@ public class TaskController {
     private ITaskService taskService;
 
     @Autowired
+    private ITaskCategoryService taskCategoryService;
+
+    @Autowired
     private ControllerHelper controllerHelper;
+    
     
     @ModelAttribute("newTask")
     public CreateTaskDto taskRequest() {
         return new CreateTaskDto();
     }
 
+    @ModelAttribute("taskCategories")
+    public List<TaskCategory> taskCategories(HttpSession session) throws NotFoundException {
+        Long userId = this.controllerHelper.getLoggedInUserId(session);
+        return this.taskCategoryService.getAllByUser(userId);
+    }
+
     @GetMapping("/new")
     public String showAddTaskForm() {
-        return "add-task-form";
+        return "task/add-task-form";
     }
 
     @PostMapping("/add")
-    public String addTask(@ModelAttribute("newTask") CreateTaskDto req, HttpSession session) throws UserMissingException {
+    public String addTask(@ModelAttribute("newTask") CreateTaskDto req, HttpSession session) throws NotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         req.setOwnerId(userId);
         this.taskService.create(req);
@@ -46,7 +60,7 @@ public class TaskController {
 
     @GetMapping("/edit")
     public ModelAndView showEditTaskForm(@RequestParam Long taskId) throws NotFoundException {
-        ModelAndView mav = new ModelAndView("edit-task-form");
+        ModelAndView mav = new ModelAndView("task/edit-task-form");
         TaskDto taskResponse = new TaskDto(taskService.getById(taskId));
         mav.addObject("task", taskResponse);
         return mav;
@@ -60,7 +74,7 @@ public class TaskController {
 
     @GetMapping("/details")
     public ModelAndView showTaskDetails(@RequestParam Long taskId) throws NotFoundException {
-        ModelAndView mav = new ModelAndView("task-details");
+        ModelAndView mav = new ModelAndView("task/task-details");
         TaskDto taskResponse = new TaskDto(taskService.getById(taskId));
         mav.addObject("task", taskResponse);
         return mav;

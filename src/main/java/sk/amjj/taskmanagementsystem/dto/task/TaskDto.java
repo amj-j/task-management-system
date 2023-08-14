@@ -19,7 +19,7 @@ public class TaskDto {
 
     private String description;
 
-    private String category;
+    private Long categoryId;
 
     private Date dueDate;
 
@@ -29,7 +29,7 @@ public class TaskDto {
         this.id = task.getId();
         this.name = task.getName();
         this.description = task.getDescription();
-        this.category = task.getCategory();
+        this.categoryId = task.getCategory().getId();
         this.dueDate = task.getDueDate();
         this.state = task.getState();
     }

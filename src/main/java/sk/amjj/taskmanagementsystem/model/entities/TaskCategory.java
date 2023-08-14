@@ -3,37 +3,31 @@ package sk.amjj.taskmanagementsystem.model.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
 @Entity
-public class User {
+public class TaskCategory {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    private String name;
 
-    private String password;
+    private String description;
 
-    private String firstName;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
 
-    private String lastName;
-
-    private String email;
-
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category")
     private List<Task> tasks = new ArrayList<>();
-
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
-    private List<TaskCategory> taskCategories = new ArrayList<>();
 }

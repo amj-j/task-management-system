@@ -8,17 +8,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
+import sk.amjj.taskmanagementsystem.dto.taskcategory.TaskCategoryDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserRegistrationDto;
+import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.PasswordsDoNotMatchException;
 import sk.amjj.taskmanagementsystem.exceptions.UsernameTakenException;
 import sk.amjj.taskmanagementsystem.model.entities.User;
-import sk.amjj.taskmanagementsystem.service.user.UserService;
+import sk.amjj.taskmanagementsystem.service.interfaces.ITaskCategoryService;
+import sk.amjj.taskmanagementsystem.service.interfaces.IUserService;
 
 @Controller
 public class RegistrationController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
+
+    @Autowired
+    private ITaskCategoryService taskCategoryService;
+
 
     @ModelAttribute("user")
     public UserRegistrationDto userRegistrationDto() {
@@ -34,10 +41,11 @@ public class RegistrationController {
     public String registerUserAccount(
             @ModelAttribute("user") UserRegistrationDto regDto, 
             HttpSession session, 
-            Model model) {
+            Model model) throws NotFoundException {
         try {
             User newUser = userService.create(regDto);
             session.setAttribute("loggedInUserId", newUser.getId());
+            this.taskCategoryService.create(new TaskCategoryDto("Default", "Default category", newUser.getId()));
             return "redirect:/home";
         }
         catch(UsernameTakenException e) {
