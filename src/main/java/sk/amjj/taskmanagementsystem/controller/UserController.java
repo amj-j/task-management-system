@@ -56,4 +56,12 @@ public class UserController {
         session.removeAttribute("loggedInUserId");
         return "redirect:/login";
     }
+
+    @GetMapping("/delete")
+    public String deleteTask(HttpSession session) throws NotFoundException {
+        Long userId = this.controllerHelper.getLoggedInUserId(session);
+        session.removeAttribute("loggedInUserId");
+        this.userService.delete(userId);
+        return "redirect:/login";
+    }
 }

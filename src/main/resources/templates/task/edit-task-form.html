@@ -37,9 +37,10 @@
             <div class="form-group">
                 <label for="state">State</label>
                 <br>
-                <select id="state" class="form-control">
+                <select id="state" name="state" class="form-control">
                     <option th:each="state : ${T(sk.amjj.taskmanagementsystem.enums.TaskState).values()}"
-                            th:value="${state}" th:text="${state}"></option>
+                            th:value="${state}" th:text="${state}">
+                    </option>
                 </select>
             </div>
             <input type="hidden" th:field="*{id}" />
