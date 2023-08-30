@@ -16,7 +16,6 @@ public class StringToDateConverter implements Converter<String, Date> {
         try {
             return dateFormat.parse(source);
         } catch (ParseException e) {
-            // Handle the parse exception, e.g., log it or throw a custom exception
             return null;
         }
     }

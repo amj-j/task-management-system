@@ -76,6 +76,7 @@ public class TaskController {
     public ModelAndView showTaskDetails(@RequestParam Long taskId) throws NotFoundException {
         ModelAndView mav = new ModelAndView("task/task-details");
         TaskDto taskResponse = new TaskDto(taskService.getById(taskId));
+        mav.addObject("taskCategory", this.taskCategoryService.getById(taskResponse.getCategoryId()).getName());
         mav.addObject("task", taskResponse);
         return mav;
     }
