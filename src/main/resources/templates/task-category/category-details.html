@@ -8,13 +8,13 @@
 
 <body>
     <div class="container mt-3">
-        <h2>Task details</h2>
+        <h2 th:text="#{task-category.details.headline}">Category details</h2>
         <h5><strong th:text="${taskCategory.name}">Task category name</strong></h5>
         <p><span th:text="${taskCategory.description}">N/A</span></p>
-        <a th:href="@{/task-category/edit(taskCategoryId=${taskCategory.id})}" class="btn btn-success">Edit</a>
-        <a th:href="@{/task-category/delete(taskCategoryId=${taskCategory.id})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/task-category/edit(taskCategoryId=${taskCategory.id})}" th:text="#{edit.action}" class="btn btn-success">Edit</a>
+        <a th:href="@{/task-category/delete(taskCategoryId=${taskCategory.id})}" th:text="#{delete.action}" class="btn btn-danger">Delete</a>
         <div>
-            <a href="/" th:href="@{/home}">Home</a>
+            <a href="/" th:href="@{/home}" th:text="#{go.home.action}">Home</a>
         </div>
     </div>
 </body>

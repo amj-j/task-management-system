@@ -9,33 +9,33 @@
         
         <div class="container">
             <div class="row m-3">
-                <h2 class="mr-3">Task Categories</h2>
-                <a th:href="@{/task-category/new}" class="btn btn-primary">Add Category</a>
+                <h2 th:text="#{task-categories.headline}" class="mr-3">Task Categories</h2>
+                <a th:href="@{/task-category/new}" th:text="#{add.task-category.action}" class="btn btn-primary">Add Category</a>
             </div>
             <table class="table talbe-bordered table-striped" id="tasks-table">
 
                 <thead>
 
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th th:text="#{task-category.name}">Name</th>
+                        <th th:text="#{task-category.description}">Description</th>
                     </tr>
 
                 </thead>
                 <tbody>
                     <tr th:each="category: ${taskCategories}">
-                        <td th:text="${category.name}"></td>
-                        <td th:text="${category.description}"></td>                                                                 
+                        <td th:text="${task-category.name}"></td>
+                        <td th:text="${task-category.description}"></td>                                                                 
                         <td>
-                            <a th:href="@{/task-category/details(taskCategoryId=${category.id})}" class="btn btn-info">Details</a>
-                            <a th:href="@{/task-category/edit(taskCategoryId=${category.id})}" class="btn btn-success">Edit</a>
-                            <a th:href="@{/task-category/delete(taskCategoryId=${category.id})}" class="btn btn-danger">Delete</a>
+                            <a th:href="@{/task-category/details(taskCategoryId=${category.id})}" th:text="#{details.action}" class="btn btn-info">Details</a>
+                            <a th:href="@{/task-category/edit(taskCategoryId=${category.id})}" th:text="#{edit.action}" class="btn btn-success">Edit</a>
+                            <a th:href="@{/task-category/delete(taskCategoryId=${category.id})}" th:text="#{delete.action}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div>
-                <a href="/" th:href="@{/home}">Home</a>
+                <a href="/" th:href="@{/home}" th:text="#{go.home.action}">Home</a>
             </div>
         </div>
     </body>

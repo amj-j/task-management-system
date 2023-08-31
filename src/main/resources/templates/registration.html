@@ -8,45 +8,45 @@
 
 <body>
     <div class="container">
-        <h2>Registration</h2>
+        <h2 th:text="#{registration.headline}">Registration</h2>
         <hr />
         <div th:if="${errorMessage}" class="alert alert-danger">
             <p th:text="${errorMessage}"></p>
         </div>
         <form th:action="@{/registration}" th:object="${user}" method="POST">
             <div class="form-group">
-                <label for="username" class="control-label">Username</label>
+                <label for="username" th:text="#{user.username}" class="control-label">Username</label>
                 <br>
                 <input id="username" type="text" th:field="*{username}" required />
             </div>
             <div class="form-group">
-                <label for="firstName" class="control-label">First name</label>
+                <label for="firstName" th:text="#{user.first.name}" class="control-label">First name</label>
                 <br>
                 <input id="firstName" type="text" th:field="*{firstName}" required />
             </div>
             <div class="form-group">
-                <label for="lastName" class="control-label">Last name</label>
+                <label for="lastName" th:text="#{user.last.name}" class="control-label">Last name</label>
                 <br>
                 <input id="lastName" type="text" th:field="*{lastName}" required />
             </div>
             <div class="form-group">
-                <label for="email" class="control-label">Email</label>
+                <label for="email" th:text="#{user.email}" class="control-label">Email</label>
                 <br>
                 <input id="email" type="email" th:field="*{email}" required />
             </div>
             <div class="form-group">
-                <label for="password" class="control-label">Password</label>
+                <label for="password" th:text="#{user.password}" class="control-label">Password</label>
                 <br>
                 <input id="password" type="password" th:field="*{password}" required />
             </div>
             <div class="form-group">
-                <label for="confirmPassword" class="control-label">Confirm password</label>
+                <label for="confirmPassword" th:text="#{user.confirm.password}" class="control-label">Confirm password</label>
                 <br>
                 <input id="confirmPassword" type="password" th:field="*{confirmPassword}" required />
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success">Register</button>
-                <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                <button type="submit" th:text="#{register.action}" class="btn btn-success">Register</button>
+                <span th:text="#{already.registered.question.message}">Already registered? <a th:href="@{/login}" th:text="#{goto.login.action}">Login here</a></span>
             </div>
         </form>
     </div>

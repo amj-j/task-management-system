@@ -8,25 +8,25 @@
 
 <body>
     <div class="container">
-        <h2>Edit Task</h2>
+        <h2 th:text="#{edit.task.headline}">Edit Task</h2>
         <form th:action="@{/task/update}" th:object="${task}" method="POST">
             <div class="form-group">
-                <label for="name" class="control-label">Task name</label>
+                <label for="name" th:text="#{task.name}" class="control-label">Task name</label>
                 <br>
                 <input id="name" type="text" th:field="*{name}" required />
             </div>
             <div class="form-group">
-                <label for="description" class="control-label">Description</label>
+                <label for="description" th:text="#{task.description}" class="control-label">Description</label>
                 <br>
                 <input id="description" type="text" th:field="*{description}" />
             </div>
             <div class="form-group">
-                <label for="dueDate">Due Date</label>
+                <label for="dueDate" th:text="#{task.due-date}">Due Date</label>
                 <br>
                 <input type="date" id="dueDate" th:field="*{dueDate}" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="category">Category</label>
+                <label for="category" th:text="#{task.category}">Category</label>
                 <br>
                 <select th:field="*{categoryId}" id="category" class="form-control">
                     <option th:each="taskCategory : ${taskCategories}"
@@ -35,7 +35,7 @@
                 </select> 
             </div>          
             <div class="form-group">
-                <label for="state">State</label>
+                <label for="state" th:text="#{task.state}">State</label>
                 <br>
                 <select id="state" name="state" class="form-control">
                     <option th:each="state : ${T(sk.amjj.taskmanagementsystem.enums.TaskState).values()}"
@@ -44,11 +44,11 @@
                 </select>
             </div>
             <input type="hidden" th:field="*{id}" />
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a th:href="@{/task/delete(taskId=${task.id})}" class="btn btn-danger">Delete</a>
+            <button type="submit" th:text="#{save.action}" class="btn btn-primary">Save</button>
+            <a th:href="@{/task/delete(taskId=${task.id})}" th:text="#{delete.action}" class="btn btn-danger">Delete</a>
         </form>
         <div>
-            <a href="/" th:href="@{/home}">Home</a>
+            <a href="/" th:href="@{/home}" th:text="#{go.home.action}">Home</a>
         </div>
     </div>
 </body>

@@ -23,8 +23,8 @@
                 </div>
                 <div class="col-md-6 d-flex justify-content-end">
                     <h5 class="mr-3 align-self-center" th:text="${firstName + ' ' + lastName}">Name Surname</h5>
-                    <a th:href="@{/user}" class="btn btn-success mr-3">Show profile</a>
-                    <a th:href="@{/user/logout}" class="btn btn-danger">Log out</a>
+                    <a th:href="@{/user}" class="btn btn-success mr-3" th:text="#{show.profile.action}">Show profile</a>
+                    <a th:href="@{/user/logout}" class="btn btn-danger" th:text="#{logout.action}">Log out</a>
                 </div>
             </div>
             <table class="table talbe-bordered table-striped" id="tasks-table">
@@ -32,10 +32,10 @@
                 <thead>
 
                     <tr>
-                        <th>Name</th>
-                        <th><a th:href="@{/task-category/list}">Category</a></th>
-                        <th>Due date</th>
-                        <th>State</th>
+                        <th th:text="#{task.name}">Name</th>
+                        <th th:text="#{task.category}"><a th:href="@{/task-category/list}">Category</a></th>
+                        <th th:text="#{task.due-date}">Due date</th>
+                        <th th:text="#{task.state}">State</th>
                     </tr>
 
                 </thead>
@@ -46,9 +46,9 @@
                         <td th:text="${#dates.format(task.dueDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${task.state}"></td>                                                                   
                         <td>
-                            <a th:href="@{/task/details(taskId=${task.id})}" class="btn btn-info">Details</a>
-                            <a th:href="@{/task/edit(taskId=${task.id})}" class="btn btn-success">Edit</a>
-                            <a th:href="@{/task/delete(taskId=${task.id})}" class="btn btn-danger">Delete</a>
+                            <a th:href="@{/task/details(taskId=${task.id})}" th:text="#{details.action}" class="btn btn-info">Details</a>
+                            <a th:href="@{/task/edit(taskId=${task.id})}" th:text="#{edit.action}" class="btn btn-success">Edit</a>
+                            <a th:href="@{/task/delete(taskId=${task.id})}" th:text="#{delete.action}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 </tbody>
