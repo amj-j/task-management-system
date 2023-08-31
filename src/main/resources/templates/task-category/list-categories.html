@@ -24,8 +24,8 @@
                 </thead>
                 <tbody>
                     <tr th:each="category: ${taskCategories}">
-                        <td th:text="${task-category.name}"></td>
-                        <td th:text="${task-category.description}"></td>                                                                 
+                        <td th:text="${category.name}"></td>
+                        <td th:text="${category.description}"></td>                                                                 
                         <td>
                             <a th:href="@{/task-category/details(taskCategoryId=${category.id})}" th:text="#{details.action}" class="btn btn-info">Details</a>
                             <a th:href="@{/task-category/edit(taskCategoryId=${category.id})}" th:text="#{edit.action}" class="btn btn-success">Edit</a>

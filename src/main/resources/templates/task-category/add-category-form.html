@@ -8,7 +8,7 @@
 
 <body>
     <div class="container">
-        <h2 th:text="#{new.task.task-category.headline}">New task category</h2>
+        <h2 th:text="#{new.task-category.headline}">New task category</h2>
         <form th:action="@{/task-category/add}" th:object="${newTaskCategory}" method="POST">
             <div class="form-group">
                 <label for="name" th:text="#{task-category.name}" class="control-label">Category name</label>
