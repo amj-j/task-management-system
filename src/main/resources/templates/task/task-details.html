@@ -12,7 +12,7 @@
         <h5><strong th:text="${task.name}">Task name</strong></h5>
         <p><strong th:text="#{task.category}">Category</strong> <span th:text="${taskCategory}">N/A</span></p>
         <p><strong th:text="#{task.due-date}">Due date</strong> <span th:text="${task.dueDate}">N/A</span></p>
-        <p><strong th:text="#{task.state}">State</strong> <span th:text="${task.state}">N/A</span></p>
+        <p><strong th:text="#{task.state}">State</strong> <span th:text="#{${'task-state.'+task.state}}">N/A</span></p>
         <p><span th:text="${task.description}">N/A</span></p>
         <a th:href="@{/task/edit(taskId=${task.id})}" th:text="#{edit.action}" class="btn btn-success">Edit</a>
         <a th:href="@{/task/delete(taskId=${task.id})}" th:text="#{delete.action}" class="btn btn-danger">Delete</a>

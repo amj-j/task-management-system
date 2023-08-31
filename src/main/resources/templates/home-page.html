@@ -44,7 +44,7 @@
                         <td th:text="${task.name}"></td>
                         <td th:text="${taskCategoryMap[task.categoryId].name}"></td>
                         <td th:text="${#dates.format(task.dueDate, 'yyyy-MM-dd')}"></td>
-                        <td th:text="${task.state}"></td>                                                                   
+                        <td th:utext="#{${'task-state.'+task.state}}"></td>                                                               
                         <td>
                             <a th:href="@{/task/details(taskId=${task.id})}" th:text="#{details.action}" class="btn btn-info">Details</a>
                             <a th:href="@{/task/edit(taskId=${task.id})}" th:text="#{edit.action}" class="btn btn-success">Edit</a>

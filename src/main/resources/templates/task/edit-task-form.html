@@ -39,7 +39,7 @@
                 <br>
                 <select id="state" name="state" class="form-control">
                     <option th:each="state : ${T(sk.amjj.taskmanagementsystem.enums.TaskState).values()}"
-                            th:value="${state}" th:text="${state}">
+                            th:value="${state}" th:text="#{${'task-state.'+state}}">
                     </option>
                 </select>
             </div>
