@@ -36,7 +36,7 @@ public class ChangeUserPasswordController {
             return "user/change-password";
         }
         else {
-            model.addAttribute("incorrectPasswordMessage", "The password you entered is incorrect!");
+            model.addAttribute("incorrectPassword", true);
             return "user/password-verification";
         }
     }
@@ -53,7 +53,7 @@ public class ChangeUserPasswordController {
             this.userService.updatePassword(userId, password, confirmPassword);
         }
         catch(PasswordsDoNotMatchException ex) {
-            model.addAttribute("doNotMatchMessage", "Passwords do not match!");
+            model.addAttribute("doNotMatch", true);
             return "user/change-password";
         }
         return "redirect:/home";

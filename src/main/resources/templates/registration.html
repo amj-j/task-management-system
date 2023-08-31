@@ -8,10 +8,22 @@
 
 <body>
     <div class="container">
+        <div class="row m-1 justify-content-end">
+            <form id="languageForm" th:action="@{/registration}" method="get">
+                <select name="localeData" onchange="submitForm()">
+                    <option value="en" th:selected="${#locale.toString() == 'en'}">EN</option>
+                    <option value="es" th:selected="${#locale.toString() == 'es'}">ES</option>
+                    <option value="sk" th:selected="${#locale.toString() == 'sk'}">SK</option>
+                </select>
+            </form>                               
+        </div>
         <h2 th:text="#{registration.headline}">Registration</h2>
         <hr />
-        <div th:if="${errorMessage}" class="alert alert-danger">
-            <p th:text="${errorMessage}"></p>
+        <div th:if="${usernameUnavailable}" class="alert alert-danger">
+            <p th:text="#{username.unavailable.message}"></p>
+        </div>
+        <div th:if="${passwordsDoNotMatch}" class="alert alert-danger">
+            <p th:text="#{passwords.do.not.match.message}"></p>
         </div>
         <form th:action="@{/registration}" th:object="${user}" method="POST">
             <div class="form-group">
@@ -46,10 +58,20 @@
             </div>
             <div class="form-group">
                 <button type="submit" th:text="#{register.action}" class="btn btn-success">Register</button>
-                <span th:text="#{already.registered.question.message}">Already registered? <a th:href="@{/login}" th:text="#{goto.login.action}">Login here</a></span>
+            </div>
+            <div class="row">
+                <p th:text="#{already.registered.question.message}" class="mr-2">Already registered?</p>
+                <a th:href="@{/login}" th:text="#{goto.login.action}">Login here</a>
             </div>
         </form>
     </div>
+
+    <script>
+        function submitForm() {
+            document.getElementById("languageForm").submit();
+        }
+    </script>
+
 </body>
 
 </html>

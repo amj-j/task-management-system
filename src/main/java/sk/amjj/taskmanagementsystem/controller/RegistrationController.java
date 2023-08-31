@@ -49,12 +49,12 @@ public class RegistrationController {
             return "redirect:/home";
         }
         catch(UsernameTakenException e) {
-            model.addAttribute("errorMessage", "This username is unavailable!");
+            model.addAttribute("usernameUnavailable", true);
             model.addAttribute("user", regDto);
             return "registration";
         }
         catch(PasswordsDoNotMatchException e) {
-            model.addAttribute("errorMessage", "Passwords do not match!");
+            model.addAttribute("passwordsDoNotMatch", true);
             model.addAttribute("user", regDto);
             return "registration";
         }

@@ -33,7 +33,7 @@ public class LoginController {
     public String login(@ModelAttribute("loginInfo") UserLoginDto loginInfo, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = this.userService.authenticate(loginInfo);
         if (user == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Username or password you entered is incorrect!");
+            redirectAttributes.addFlashAttribute("invalidData", true);
             return "redirect:/login";
         }
         else {

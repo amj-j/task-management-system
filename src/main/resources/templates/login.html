@@ -7,11 +7,20 @@
 </head>
 
 <body>
-    <div class="container">       
+    <div class="container">   
+        <div class="row m-1 justify-content-end">
+            <form id="languageForm" th:action="@{/login}" method="get">
+                <select name="localeData" onchange="submitForm()">
+                    <option value="en" th:selected="${#locale.toString() == 'en'}">EN</option>
+                    <option value="es" th:selected="${#locale.toString() == 'es'}">ES</option>
+                    <option value="sk" th:selected="${#locale.toString() == 'sk'}">SK</option>
+                </select>
+            </form>                               
+        </div>    
         <h2 th:text="#{login.headline}">Login</h2>
         <hr />
-        <div th:if="${errorMessage}" class="alert alert-danger">
-            <p th:text="${errorMessage}"></p>
+        <div th:if="${invalidData}" class="alert alert-danger">
+            <p th:text="#{incorrect.username.or.password.message}"></p>
         </div> 
         <form th:action="@{/login}" th:object="${loginInfo}" method="POST">
             <div class="form-group">
@@ -24,10 +33,20 @@
             </div>
             <div class="form-group">
                 <button type="submit" th:text="#{login.action}" class="btn btn-success">Log In</button>
-                <span th:text="#{no.account.question.message}">Don't have account yet? <a href="/" th:href="@{/registration}" th:text="#{create.account.action}">Create an account</a></span>
+            </div>
+            <div class="row">
+                <p th:text="#{no.account.question.message}" class="mr-2">Don't have account yet?</p>
+                <a href="/" th:href="@{/registration}" th:text="#{create.account.action}">Create an account</a>
             </div>
         </form>
     </div>
+
+    <script>
+        function submitForm() {
+            document.getElementById("languageForm").submit();
+        }
+    </script>
+
 </body>
 
 </html>
