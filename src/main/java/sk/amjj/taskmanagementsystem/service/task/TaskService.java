@@ -47,7 +47,7 @@ public class TaskService implements ITaskService {
             return task.get();
         }
         else {
-            throw new NotFoundException();
+            throw new NotFoundException("Task not found!");
         }
     }
 

@@ -42,7 +42,7 @@ public class TaskCategoryService implements ITaskCategoryService {
             return task.get();
         }
         else {
-            throw new NotFoundException();
+            throw new NotFoundException("Task category not found!");
         }
     }
 

@@ -62,7 +62,7 @@ public class UserService implements IUserService {
             return user.get();
         }
         else {
-            throw new NotFoundException();
+            throw new NotFoundException("User not found!");
         }
     }
 
@@ -86,11 +86,8 @@ public class UserService implements IUserService {
 
     @Override
     public boolean verifyPassword(long id, String password) throws NotFoundException {
-        Optional<User> user = this.userRepository.findById(id);
-        if (!user.isPresent()) {
-            throw new NotFoundException();
-        }
-        return user.get().getPassword().equals(password);
+        User user = this.getById(id);
+        return user.getPassword().equals(password);
     }
 
     @Override
@@ -98,11 +95,7 @@ public class UserService implements IUserService {
         if (!password.equals(confirmPassword)) {
             throw new PasswordsDoNotMatchException();
         }
-        Optional<User> optUser = this.userRepository.findById(id);
-        if (!optUser.isPresent()) {
-            throw new NotFoundException();
-        }
-        User user = optUser.get();
+        User user = this.getById(id);
         user.setPassword(password);
         return this.userRepository.save(user);
     }

@@ -2,14 +2,23 @@ package sk.amjj.taskmanagementsystem.exceptions;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(UserMissingException.class)
-    public String handleAuthenticationRequiredException(UserMissingException ex, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("nooneLoggedInMessage", ex.getMessage());
-        return "redirect:/login";
+    public ModelAndView handleUserMissingException(UserMissingException ex) {
+        ModelAndView mav = new ModelAndView("error");
+        mav.addObject("errorMessage", ex.getMessage());
+        return mav;
     }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFoundException(NotFoundException ex) {
+        ModelAndView mav = new ModelAndView("error");
+        mav.addObject("errorMessage", ex.getMessage());
+        return mav;
+    }
+
 }
