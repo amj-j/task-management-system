@@ -24,19 +24,19 @@ public class TaskCategoryService implements ITaskCategoryService {
     private IUserService userService;
 
     @Override
-    public List<TaskCategory> getAllByUser(Long userId) throws NotFoundException {
+    public List<TaskCategory> getAllByUser(long userId) throws NotFoundException {
         User user = this.userService.getById(userId);
         return taskCategoryRepository.findAllByOwner(user);
     }
 
     @Override
-    public List<TaskCategory> getAllInUseByUser(Long userId) throws NotFoundException {
+    public List<TaskCategory> getAllInUseByUser(long userId) throws NotFoundException {
         User user = this.userService.getById(userId);
         return taskCategoryRepository.findAllWithTasksForUser(user);
     }
 
     @Override
-    public TaskCategory getById(Long id) throws NotFoundException {
+    public TaskCategory getById(long id) throws NotFoundException {
         Optional<TaskCategory> task = taskCategoryRepository.findById(id);
         if (task.isPresent()) {
             return task.get();
@@ -69,8 +69,9 @@ public class TaskCategoryService implements ITaskCategoryService {
     }
 
     @Override
-    public Long getCount() {
-        return this.taskCategoryRepository.count();
+    public Long getCountByUser(long userId) throws NotFoundException {
+        User user = this.userService.getById(userId);
+        return this.taskCategoryRepository.countByOwner(user);
     }
 
     @Override

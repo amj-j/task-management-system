@@ -8,17 +8,17 @@ import sk.amjj.taskmanagementsystem.model.entities.TaskCategory;
 
 public interface ITaskCategoryService {
 
-    List<TaskCategory> getAllByUser(Long userId) throws NotFoundException;
+    List<TaskCategory> getAllByUser(long userId) throws NotFoundException;
 
-    List<TaskCategory> getAllInUseByUser(Long userId) throws NotFoundException;
+    List<TaskCategory> getAllInUseByUser(long userId) throws NotFoundException;
 
-    TaskCategory getById(Long id) throws NotFoundException;
+    TaskCategory getById(long id) throws NotFoundException;
 
     TaskCategory create(TaskCategoryDto req) throws NotFoundException;
 
     TaskCategory update(TaskCategoryDto req) throws NotFoundException;
 
-    Long getCount();
+    Long getCountByUser(long userId) throws NotFoundException;
 
     boolean hasTasks(long id) throws NotFoundException;
 

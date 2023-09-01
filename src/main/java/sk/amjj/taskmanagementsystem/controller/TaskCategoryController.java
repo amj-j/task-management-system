@@ -92,8 +92,9 @@ public class TaskCategoryController {
     }
 
     @GetMapping("/delete")
-    public String deleteTaskCategory(@RequestParam Long taskCategoryId, RedirectAttributes redirectAttributes) throws NotFoundException {
-        if (this.taskCategoryService.getCount() <= 1) {
+    public String deleteTaskCategory(@RequestParam Long taskCategoryId, HttpSession session, RedirectAttributes redirectAttributes) throws NotFoundException {
+        Long userId = this.controllerHelper.getLoggedInUserId(session);
+        if (this.taskCategoryService.getCountByUser(userId) == 1) {
             redirectAttributes.addFlashAttribute("errorMessage", "task-category.deletion.error.last.category.message");
         }
         else if (this.taskCategoryService.hasTasks(taskCategoryId)) {

@@ -17,7 +17,7 @@ public interface ITaskCategoryRepository extends JpaRepository<TaskCategory, Lon
     
     List<TaskCategory> findAllByOwner(User owner);
 
-    long count();
+    long countByOwner(User owner);
 
     boolean existsByIdAndTasksIsNotEmpty(Long id);
 
