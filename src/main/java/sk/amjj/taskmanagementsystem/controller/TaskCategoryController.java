@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import sk.amjj.taskmanagementsystem.dto.taskcategory.TaskCategoryDto;
@@ -91,8 +92,16 @@ public class TaskCategoryController {
     }
 
     @GetMapping("/delete")
-    public String deleteTaskCategory(@RequestParam Long taskCategoryId) throws NotFoundException {
-        this.taskCategoryService.delete(taskCategoryId);
+    public String deleteTaskCategory(@RequestParam Long taskCategoryId, RedirectAttributes redirectAttributes) throws NotFoundException {
+        if (this.taskCategoryService.getCount() <= 1) {
+            redirectAttributes.addFlashAttribute("errorMessage", "task-category.deletion.error.last.category.message");
+        }
+        else if (this.taskCategoryService.hasTasks(taskCategoryId)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "task-category.deletion.error.in.usage.message");
+        }
+        else {
+            this.taskCategoryService.delete(taskCategoryId);
+        }
         return "redirect:/task-category/list";
     }
 

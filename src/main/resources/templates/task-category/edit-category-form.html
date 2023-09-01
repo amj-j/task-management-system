@@ -9,6 +9,9 @@
 <body>
     <div class="container">
         <h2 th:text="#{edit.task-category.headline}">Edit Task Category</h2>
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <p th:text="#{${errorMessage}}"></p>
+        </div>
         <form th:action="@{/task-category/update}" th:object="${taskCategory}" method="POST">
             <div class="form-group">
                 <label for="name" th:text="#{task-category.name}" class="control-label">Category name</label>

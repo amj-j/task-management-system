@@ -69,6 +69,17 @@ public class TaskCategoryService implements ITaskCategoryService {
     }
 
     @Override
+    public Long getCount() {
+        return this.taskCategoryRepository.count();
+    }
+
+    @Override
+    public boolean hasTasks(long id) throws NotFoundException {
+        this.getById(id);
+        return this.taskCategoryRepository.existsByIdAndTasksIsNotEmpty(id);
+    }
+
+    @Override
     public void delete(long id) throws NotFoundException {
         this.taskCategoryRepository.delete(this.getById(id));
     }

@@ -18,6 +18,10 @@ public interface ITaskCategoryService {
 
     TaskCategory update(TaskCategoryDto req) throws NotFoundException;
 
+    Long getCount();
+
+    boolean hasTasks(long id) throws NotFoundException;
+
     void delete(long id) throws NotFoundException;
 
     void deleteAllByOwnerId(long userId) throws NotFoundException;

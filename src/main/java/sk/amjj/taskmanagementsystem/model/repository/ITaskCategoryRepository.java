@@ -17,6 +17,10 @@ public interface ITaskCategoryRepository extends JpaRepository<TaskCategory, Lon
     
     List<TaskCategory> findAllByOwner(User owner);
 
+    long count();
+
+    boolean existsByIdAndTasksIsNotEmpty(Long id);
+
     @Query("SELECT DISTINCT tc FROM TaskCategory tc JOIN tc.tasks t WHERE t.owner = :user")
     List<TaskCategory> findAllWithTasksForUser(@Param("user") User user);
 

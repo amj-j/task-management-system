@@ -12,6 +12,9 @@
                 <h2 th:text="#{task-categories.headline}" class="mr-3">Task Categories</h2>
                 <a th:href="@{/task-category/new}" th:text="#{add.task-category.action}" class="btn btn-primary">Add Category</a>
             </div>
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <p th:text="#{${errorMessage}}"></p>
+            </div>
             <table class="table talbe-bordered table-striped" id="tasks-table">
 
                 <thead>
