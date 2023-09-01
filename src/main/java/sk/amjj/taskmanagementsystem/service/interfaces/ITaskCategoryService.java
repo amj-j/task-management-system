@@ -20,4 +20,6 @@ public interface ITaskCategoryService {
 
     void delete(long id) throws NotFoundException;
 
+    void deleteAllByOwnerId(long userId) throws NotFoundException;
+
 }

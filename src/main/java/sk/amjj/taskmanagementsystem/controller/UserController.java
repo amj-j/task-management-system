@@ -13,6 +13,8 @@ import sk.amjj.taskmanagementsystem.dto.user.UserInfoDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserUpdateDto;
 import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.UserMissingException;
+import sk.amjj.taskmanagementsystem.service.interfaces.ITaskCategoryService;
+import sk.amjj.taskmanagementsystem.service.interfaces.ITaskService;
 import sk.amjj.taskmanagementsystem.service.interfaces.IUserService;
 
 @Controller
@@ -21,6 +23,13 @@ public class UserController {
     
     @Autowired
     private IUserService userService;
+
+    
+    @Autowired
+    private ITaskService taskService;
+
+    @Autowired
+    private ITaskCategoryService taskCategoryService;
 
     @Autowired
     private ControllerHelper controllerHelper;
@@ -61,6 +70,8 @@ public class UserController {
     public String deleteTask(HttpSession session) throws NotFoundException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         session.removeAttribute("loggedInUserId");
+        this.taskService.deleteAllByOwnerId(userId);
+        this.taskCategoryService.deleteAllByOwnerId(userId);
         this.userService.delete(userId);
         return "redirect:/login";
     }

@@ -73,4 +73,9 @@ public class TaskCategoryService implements ITaskCategoryService {
         this.taskCategoryRepository.delete(this.getById(id));
     }
 
+    @Override
+    public void deleteAllByOwnerId(long userId) throws NotFoundException {
+        this.taskCategoryRepository.deleteAllByOwner(this.userService.getById(userId));
+    }
+
 }

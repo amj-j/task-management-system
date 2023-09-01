@@ -15,4 +15,6 @@ public interface ITaskService {
 
     void delete(long id) throws NotFoundException;
 
+    void deleteAllByOwnerId(long userId) throws NotFoundException;
+
 }

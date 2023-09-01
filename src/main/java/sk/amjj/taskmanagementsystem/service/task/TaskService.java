@@ -77,4 +77,9 @@ public class TaskService implements ITaskService {
         this.taskRepository.delete(this.getById(id));
     }
 
+    @Override
+    public void deleteAllByOwnerId(long userId) throws NotFoundException {
+        this.taskRepository.deleteAllByOwner(this.userService.getById(userId));
+    }
+
 }
