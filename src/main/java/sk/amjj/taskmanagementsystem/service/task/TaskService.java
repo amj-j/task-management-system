@@ -1,12 +1,16 @@
 package sk.amjj.taskmanagementsystem.service.task;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sk.amjj.taskmanagementsystem.comparators.TaskComparator;
 import sk.amjj.taskmanagementsystem.dto.task.CreateTaskDto;
 import sk.amjj.taskmanagementsystem.dto.task.TaskDto;
+import sk.amjj.taskmanagementsystem.enums.SortDirection;
+import sk.amjj.taskmanagementsystem.enums.SortTasksBy;
 import sk.amjj.taskmanagementsystem.enums.TaskState;
 import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
 import sk.amjj.taskmanagementsystem.model.entities.Task;
@@ -70,6 +74,12 @@ public class TaskService implements ITaskService {
             task.setState(req.getState());
         }
         return this.taskRepository.save(task);
+    }
+
+    @Override
+    public void sort(List<Task> tasks, SortTasksBy sortBy, SortDirection sortDir) {
+        TaskComparator comparator = new TaskComparator(sortBy, sortDir);
+        tasks.sort(comparator);
     }
 
     @Override

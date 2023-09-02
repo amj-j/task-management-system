@@ -30,14 +30,12 @@
             <table class="table talbe-bordered table-striped" id="tasks-table">
 
                 <thead>
-
                     <tr>
-                        <th th:text="#{task.name}">Name</th>
-                        <th><a th:href="@{/task-category/list}" th:text="#{task.category}">Category</a></th>
-                        <th th:text="#{task.due-date}">Due date</th>
-                        <th th:text="#{task.state}">State</th>
+                        <th><a th:href="@{/tasks(sortBy=NAME,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.name}">Name</a></th>
+                        <th><a th:href="@{/tasks(sortBy=CATEGORY,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.category}">Category</a></th>
+                        <th><a th:href="@{/tasks(sortBy=DUE_DATE,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.due-date}">Due date</a></th>
+                        <th><a th:href="@{/tasks(sortBy=STATE,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.state}">State</a></th>
                     </tr>
-
                 </thead>
                 <tbody>
                     <tr th:each="task: ${tasks}">
