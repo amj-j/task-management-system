@@ -45,7 +45,7 @@ public class MainController {
     public ModelAndView showHomePage(
         HttpSession session, 
         @RequestParam(name = "sortBy", defaultValue = "NAME") SortTasksBy sortBy,
-        @RequestParam(name = "sortDir", defaultValue = "ACS") SortDirection sortDir) 
+        @RequestParam(name = "sortDir", defaultValue = "ASC") SortDirection sortDir) 
         throws NotFoundException, UserMissingException {
 
         ModelAndView mav = new ModelAndView("home-page");
@@ -67,6 +67,8 @@ public class MainController {
         mav.addObject("lastName", user.getLastName());
         mav.addObject("tasks", tasks);
         mav.addObject("taskCategoryMap", taskCategories);
+        mav.addObject("sortBy", sortBy);
+        mav.addObject("sortDir", sortDir.name());        
         return mav;
     }
 

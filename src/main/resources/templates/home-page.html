@@ -19,7 +19,8 @@
             <div class="row m-3">
                 <div class="col-md-6 d-flex justify-content-start">
                     <h2 th:text="#{tasks.headline}" class="mr-3"></h2>
-                    <a th:href="@{/task/new}" class="btn btn-primary">Add Task</a>
+                    <a th:href="@{/task/new}" class="btn btn-primary  mr-2">Add Task</a>
+                    <a th:href="@{/task-category/list}" class="btn btn-info">Show Task Categories</a>
                 </div>
                 <div class="col-md-6 d-flex justify-content-end">
                     <h5 class="mr-3 align-self-center" th:text="${firstName + ' ' + lastName}">Name Surname</h5>
@@ -31,10 +32,10 @@
 
                 <thead>
                     <tr>
-                        <th><a th:href="@{/tasks(sortBy=NAME,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.name}">Name</a></th>
-                        <th><a th:href="@{/tasks(sortBy=CATEGORY,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.category}">Category</a></th>
-                        <th><a th:href="@{/tasks(sortBy=DUE_DATE,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.due-date}">Due date</a></th>
-                        <th><a th:href="@{/tasks(sortBy=STATE,sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.state}">State</a></th>
+                        <th><a th:href="@{/home(sortBy=NAME, sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.name}">Name</a></th>
+                        <th><a th:href="@{/home(sortBy=CATEGORY, sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.category}">Category</a></th>
+                        <th><a th:href="@{/home(sortBy=DUE_DATE, sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.due-date}">Due date</a></th>
+                        <th><a th:href="@{/home(sortBy=STATE, sortDir=${sortDir == 'ASC' ? 'DESC' : 'ASC'})}" th:text="#{task.state}">State</a></th>
                     </tr>
                 </thead>
                 <tbody>
