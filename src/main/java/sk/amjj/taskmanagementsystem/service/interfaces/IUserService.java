@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import sk.amjj.taskmanagementsystem.dto.user.UserLoginDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserRegistrationDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserUpdateDto;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.PasswordsDoNotMatchException;
 import sk.amjj.taskmanagementsystem.exceptions.UsernameTakenException;
 import sk.amjj.taskmanagementsystem.model.entities.User;
@@ -21,14 +21,14 @@ public interface IUserService {
 
     User create(UserRegistrationDto req)  throws UsernameTakenException, PasswordsDoNotMatchException;
 
-    User getById(long id) throws NotFoundException;
+    User getById(long id) throws IdNotFoundException;
 
-    User update(long id, UserUpdateDto req) throws NotFoundException;
+    User update(long id, UserUpdateDto req) throws IdNotFoundException;
 
-    boolean verifyPassword(long id, String password) throws NotFoundException;
+    boolean verifyPassword(long id, String password) throws IdNotFoundException;
 
-    User updatePassword(long id, String password, String confirmPassword) throws NotFoundException, PasswordsDoNotMatchException;
+    User updatePassword(long id, String password, String confirmPassword) throws IdNotFoundException, PasswordsDoNotMatchException;
 
-    void delete(long id) throws NotFoundException;
+    void delete(long id) throws IdNotFoundException;
 
 }

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpSession;
 import sk.amjj.taskmanagementsystem.dto.task.CreateTaskDto;
 import sk.amjj.taskmanagementsystem.dto.task.TaskDto;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.UserMissingException;
 import sk.amjj.taskmanagementsystem.model.entities.TaskCategory;
 import sk.amjj.taskmanagementsystem.service.interfaces.ITaskCategoryService;
@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @ModelAttribute("taskCategories")
-    public List<TaskCategory> taskCategories(HttpSession session) throws NotFoundException {
+    public List<TaskCategory> taskCategories(HttpSession session) throws IdNotFoundException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         return this.taskCategoryService.getAllByUser(userId);
     }
@@ -51,7 +51,7 @@ public class TaskController {
     }
 
     @PostMapping("/add")
-    public String addTask(@ModelAttribute("newTask") CreateTaskDto req, HttpSession session) throws NotFoundException, UserMissingException {
+    public String addTask(@ModelAttribute("newTask") CreateTaskDto req, HttpSession session) throws IdNotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         req.setOwnerId(userId);
         this.taskService.create(req);
@@ -59,7 +59,7 @@ public class TaskController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView showEditTaskForm(@RequestParam Long taskId) throws NotFoundException {
+    public ModelAndView showEditTaskForm(@RequestParam Long taskId) throws IdNotFoundException {
         ModelAndView mav = new ModelAndView("task/edit-task-form");
         TaskDto taskResponse = new TaskDto(taskService.getById(taskId));
         mav.addObject("task", taskResponse);
@@ -67,13 +67,13 @@ public class TaskController {
     }
 
     @PostMapping("/update")
-    public String updateTask(@ModelAttribute("task") TaskDto task) throws NotFoundException {
+    public String updateTask(@ModelAttribute("task") TaskDto task) throws IdNotFoundException {
         this.taskService.update(task);
         return "redirect:/home";
     }
 
     @GetMapping("/details")
-    public ModelAndView showTaskDetails(@RequestParam Long taskId) throws NotFoundException {
+    public ModelAndView showTaskDetails(@RequestParam Long taskId) throws IdNotFoundException {
         ModelAndView mav = new ModelAndView("task/task-details");
         TaskDto taskResponse = new TaskDto(taskService.getById(taskId));
         mav.addObject("taskCategory", this.taskCategoryService.getById(taskResponse.getCategoryId()).getName());
@@ -82,7 +82,7 @@ public class TaskController {
     }
 
     @GetMapping("/delete")
-    public String deleteTask(@RequestParam Long taskId) throws NotFoundException {
+    public String deleteTask(@RequestParam Long taskId) throws IdNotFoundException {
         this.taskService.delete(taskId);
         return "redirect:/home";
     }

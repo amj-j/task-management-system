@@ -12,7 +12,7 @@ import sk.amjj.taskmanagementsystem.dto.task.TaskDto;
 import sk.amjj.taskmanagementsystem.enums.SortDirection;
 import sk.amjj.taskmanagementsystem.enums.SortTasksBy;
 import sk.amjj.taskmanagementsystem.enums.TaskState;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.model.entities.Task;
 import sk.amjj.taskmanagementsystem.model.repository.ITaskRepository;
 import sk.amjj.taskmanagementsystem.service.interfaces.ITaskCategoryService;
@@ -32,7 +32,7 @@ public class TaskService implements ITaskService {
     private ITaskCategoryService taskCategoryService;
 
     @Override
-    public Task create(CreateTaskDto req) throws NotFoundException {
+    public Task create(CreateTaskDto req) throws IdNotFoundException {
         Task task = new Task();
         task.setName(req.getName());
         task.setDescription(req.getDescription());
@@ -45,18 +45,18 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public Task getById(long id) throws NotFoundException {
+    public Task getById(long id) throws IdNotFoundException {
         Optional<Task> task = taskRepository.findById(id);
         if (task.isPresent()) {
             return task.get();
         }
         else {
-            throw new NotFoundException("Task not found!");
+            throw new IdNotFoundException("Task not found!");
         }
     }
 
     @Override
-    public Task update(TaskDto req) throws NotFoundException {
+    public Task update(TaskDto req) throws IdNotFoundException {
         Task task = this.getById(req.getId());
         if (req.getName() != null) {
             task.setName(req.getName());
@@ -83,12 +83,12 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void delete(long id) throws NotFoundException {
+    public void delete(long id) throws IdNotFoundException {
         this.taskRepository.delete(this.getById(id));
     }
 
     @Override
-    public void deleteAllByOwnerId(long userId) throws NotFoundException {
+    public void deleteAllByOwnerId(long userId) throws IdNotFoundException {
         this.taskRepository.deleteAllByOwner(this.userService.getById(userId));
     }
 

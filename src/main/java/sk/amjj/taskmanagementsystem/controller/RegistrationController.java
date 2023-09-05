@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpSession;
 import sk.amjj.taskmanagementsystem.dto.taskcategory.TaskCategoryDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserRegistrationDto;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.PasswordsDoNotMatchException;
 import sk.amjj.taskmanagementsystem.exceptions.UsernameTakenException;
 import sk.amjj.taskmanagementsystem.model.entities.User;
@@ -41,7 +41,7 @@ public class RegistrationController {
     public String registerUserAccount(
             @ModelAttribute("user") UserRegistrationDto regDto, 
             HttpSession session, 
-            Model model) throws NotFoundException {
+            Model model) throws IdNotFoundException {
         try {
             User newUser = userService.create(regDto);
             session.setAttribute("loggedInUserId", newUser.getId());

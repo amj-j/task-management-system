@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import sk.amjj.taskmanagementsystem.dto.user.UserLoginDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserRegistrationDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserUpdateDto;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.PasswordsDoNotMatchException;
 import sk.amjj.taskmanagementsystem.exceptions.UsernameTakenException;
 import sk.amjj.taskmanagementsystem.model.entities.User;
@@ -56,18 +56,18 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getById(long id) throws NotFoundException {
+    public User getById(long id) throws IdNotFoundException {
         Optional<User> user = this.userRepository.findById(id);
         if (user.isPresent()) {
             return user.get();
         }
         else {
-            throw new NotFoundException("User not found!");
+            throw new IdNotFoundException("User not found!");
         }
     }
 
     @Override
-    public User update(long id, UserUpdateDto reg) throws NotFoundException {
+    public User update(long id, UserUpdateDto reg) throws IdNotFoundException {
         User user = this.getById(id);
         if (reg.getUsername() != null) {
             user.setUsername(reg.getUsername());
@@ -85,13 +85,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean verifyPassword(long id, String password) throws NotFoundException {
+    public boolean verifyPassword(long id, String password) throws IdNotFoundException {
         User user = this.getById(id);
         return user.getPassword().equals(password);
     }
 
     @Override
-    public User updatePassword(long id, String password, String confirmPassword) throws NotFoundException, PasswordsDoNotMatchException {
+    public User updatePassword(long id, String password, String confirmPassword) throws IdNotFoundException, PasswordsDoNotMatchException {
         if (!password.equals(confirmPassword)) {
             throw new PasswordsDoNotMatchException();
         }
@@ -101,7 +101,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void delete(long id) throws NotFoundException {
+    public void delete(long id) throws IdNotFoundException {
         this.userRepository.delete(this.getById(id));
     }
 

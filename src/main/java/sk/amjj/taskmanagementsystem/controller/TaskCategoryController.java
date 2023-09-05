@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import sk.amjj.taskmanagementsystem.dto.taskcategory.TaskCategoryDto;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.UserMissingException;
 import sk.amjj.taskmanagementsystem.model.entities.TaskCategory;
 import sk.amjj.taskmanagementsystem.model.entities.User;
@@ -42,7 +42,7 @@ public class TaskCategoryController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listCategories(HttpSession session) throws NotFoundException, UserMissingException {
+    public ModelAndView listCategories(HttpSession session) throws IdNotFoundException, UserMissingException {
         ModelAndView mav = new ModelAndView("task-category/list-categories");
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         User user = userService.getById(userId);
@@ -62,7 +62,7 @@ public class TaskCategoryController {
     }
 
     @PostMapping("/add")
-    public String addTaskCategory(@ModelAttribute("newTaskCategory") TaskCategoryDto req, HttpSession session) throws NotFoundException, UserMissingException {
+    public String addTaskCategory(@ModelAttribute("newTaskCategory") TaskCategoryDto req, HttpSession session) throws IdNotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         req.setOwnerId(userId);
         this.taskCategoryService.create(req);
@@ -70,7 +70,7 @@ public class TaskCategoryController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView showEditTaskCategoryForm(@RequestParam Long taskCategoryId) throws NotFoundException {
+    public ModelAndView showEditTaskCategoryForm(@RequestParam Long taskCategoryId) throws IdNotFoundException {
         ModelAndView mav = new ModelAndView("task-category/edit-category-form");
         TaskCategoryDto taskCategoryResponse = new TaskCategoryDto(taskCategoryService.getById(taskCategoryId));
         mav.addObject("taskCategory", taskCategoryResponse);
@@ -78,13 +78,13 @@ public class TaskCategoryController {
     }
 
     @PostMapping("/update")
-    public String updateTaskCategory(@ModelAttribute("taskCategory") TaskCategoryDto taskCategory) throws NotFoundException {
+    public String updateTaskCategory(@ModelAttribute("taskCategory") TaskCategoryDto taskCategory) throws IdNotFoundException {
         this.taskCategoryService.update(taskCategory);
         return "redirect:/task-category/list";
     }
 
     @GetMapping("/details")
-    public ModelAndView showTaskCategoryDetails(@RequestParam Long taskCategoryId) throws NotFoundException {
+    public ModelAndView showTaskCategoryDetails(@RequestParam Long taskCategoryId) throws IdNotFoundException {
         ModelAndView mav = new ModelAndView("task-category/category-details");
         TaskCategoryDto taskCategoryResponse = new TaskCategoryDto(taskCategoryService.getById(taskCategoryId));
         mav.addObject("taskCategory", taskCategoryResponse);
@@ -92,7 +92,7 @@ public class TaskCategoryController {
     }
 
     @GetMapping("/delete")
-    public String deleteTaskCategory(@RequestParam Long taskCategoryId, HttpSession session, RedirectAttributes redirectAttributes) throws NotFoundException {
+    public String deleteTaskCategory(@RequestParam Long taskCategoryId, HttpSession session, RedirectAttributes redirectAttributes) throws IdNotFoundException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         if (this.taskCategoryService.getCountByUser(userId) == 1) {
             redirectAttributes.addFlashAttribute("errorMessage", "task-category.deletion.error.last.category.message");

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.PasswordsDoNotMatchException;
 import sk.amjj.taskmanagementsystem.service.interfaces.IUserService;
 
@@ -30,7 +30,7 @@ public class ChangeUserPasswordController {
     }
 
     @PostMapping("/verifyCurrent")
-    public String verifyPasswordBeforeChanging(@RequestParam("password") String password, HttpSession session, Model model) throws NotFoundException {
+    public String verifyPasswordBeforeChanging(@RequestParam("password") String password, HttpSession session, Model model) throws IdNotFoundException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         if (this.userService.verifyPassword(userId, password)) {
             return "user/change-password";
@@ -47,7 +47,7 @@ public class ChangeUserPasswordController {
     }
 
     @PostMapping
-    public String updatePassword(@RequestParam("password") String password, @RequestParam("confirmPassword") String confirmPassword, HttpSession session, Model model) throws NotFoundException {
+    public String updatePassword(@RequestParam("password") String password, @RequestParam("confirmPassword") String confirmPassword, HttpSession session, Model model) throws IdNotFoundException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         try {
             this.userService.updatePassword(userId, password, confirmPassword);

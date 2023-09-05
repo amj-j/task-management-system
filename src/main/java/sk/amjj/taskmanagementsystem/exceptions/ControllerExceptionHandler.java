@@ -14,8 +14,8 @@ public class ControllerExceptionHandler {
         return mav;
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFoundException(NotFoundException ex) {
+    @ExceptionHandler(IdNotFoundException.class)
+    public ModelAndView handleNotFoundException(IdNotFoundException ex) {
         ModelAndView mav = new ModelAndView("error");
         mav.addObject("errorMessage", ex.getMessage());
         return mav;

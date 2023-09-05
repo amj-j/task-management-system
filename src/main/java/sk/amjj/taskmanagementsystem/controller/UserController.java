@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpSession;
 import sk.amjj.taskmanagementsystem.dto.user.UserInfoDto;
 import sk.amjj.taskmanagementsystem.dto.user.UserUpdateDto;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.UserMissingException;
 import sk.amjj.taskmanagementsystem.service.interfaces.ITaskCategoryService;
 import sk.amjj.taskmanagementsystem.service.interfaces.ITaskService;
@@ -36,7 +36,7 @@ public class UserController {
 
 
     @GetMapping
-    public ModelAndView showUserDetails(HttpSession session) throws NotFoundException, UserMissingException {
+    public ModelAndView showUserDetails(HttpSession session) throws IdNotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         UserInfoDto userDto = new UserInfoDto(userService.getById(userId));
         ModelAndView mav = new ModelAndView("user/user-details");
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView showUserUpdateForm(HttpSession session) throws NotFoundException, UserMissingException {
+    public ModelAndView showUserUpdateForm(HttpSession session) throws IdNotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         UserUpdateDto dto = new UserUpdateDto(userService.getById(userId));
         ModelAndView mav = new ModelAndView("user/edit-user-form");
@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute UserUpdateDto dto, HttpSession session) throws NotFoundException, UserMissingException {
+    public String updateUser(@ModelAttribute UserUpdateDto dto, HttpSession session) throws IdNotFoundException, UserMissingException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         this.userService.update(userId, dto);
         return "redirect:/user";
@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @GetMapping("/delete")
-    public String deleteTask(HttpSession session) throws NotFoundException {
+    public String deleteTask(HttpSession session) throws IdNotFoundException {
         Long userId = this.controllerHelper.getLoggedInUserId(session);
         session.removeAttribute("loggedInUserId");
         this.taskService.deleteAllByOwnerId(userId);

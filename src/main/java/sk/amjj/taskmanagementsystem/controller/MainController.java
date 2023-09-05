@@ -16,7 +16,7 @@ import sk.amjj.taskmanagementsystem.dto.task.TaskDto;
 import sk.amjj.taskmanagementsystem.dto.taskcategory.TaskCategoryDto;
 import sk.amjj.taskmanagementsystem.enums.SortDirection;
 import sk.amjj.taskmanagementsystem.enums.SortTasksBy;
-import sk.amjj.taskmanagementsystem.exceptions.NotFoundException;
+import sk.amjj.taskmanagementsystem.exceptions.IdNotFoundException;
 import sk.amjj.taskmanagementsystem.exceptions.UserMissingException;
 import sk.amjj.taskmanagementsystem.model.entities.Task;
 import sk.amjj.taskmanagementsystem.model.entities.TaskCategory;
@@ -46,7 +46,7 @@ public class MainController {
         HttpSession session, 
         @RequestParam(name = "sortBy", defaultValue = "NAME") SortTasksBy sortBy,
         @RequestParam(name = "sortDir", defaultValue = "ASC") SortDirection sortDir) 
-        throws NotFoundException, UserMissingException {
+        throws IdNotFoundException, UserMissingException {
 
         ModelAndView mav = new ModelAndView("home-page");
         Long userId = this.controllerHelper.getLoggedInUserId(session);
