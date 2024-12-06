@@ -17,12 +17,12 @@
                 </form>                               
             </div>
             <div class="row m-3">
-                <div class="col-md-6 d-flex justify-content-start">
+                <div class="col-md-6 d-flex justify-content-start align-items-center">
                     <h2 th:text="#{tasks.headline}" class="mr-3"></h2>
                     <a th:text="#{add.task.action}" th:href="@{/task/new}" class="btn btn-primary  mr-2"></a>
                     <a th:text="#{show.task-categories.action}" th:href="@{/task-category/list}" class="btn btn-info"></a>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
+                <div class="col-md-6 d-flex justify-content-end align-items-center">
                     <h5 class="mr-3 align-self-center" th:text="${firstName + ' ' + lastName}">Name Surname</h5>
                     <a th:href="@{/user}" class="btn btn-success mr-3" th:text="#{show.profile.action}">Show profile</a>
                     <a th:href="@{/user/logout}" class="btn btn-danger" th:text="#{logout.action}">Log out</a>
