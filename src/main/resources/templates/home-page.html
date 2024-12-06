@@ -19,8 +19,8 @@
             <div class="row m-3">
                 <div class="col-md-6 d-flex justify-content-start">
                     <h2 th:text="#{tasks.headline}" class="mr-3"></h2>
-                    <a th:href="@{/task/new}" class="btn btn-primary  mr-2">Add Task</a>
-                    <a th:href="@{/task-category/list}" class="btn btn-info">Show Task Categories</a>
+                    <a th:text="#{add.task.action}" th:href="@{/task/new}" class="btn btn-primary  mr-2"></a>
+                    <a th:text="#{show.task-categories.action}" th:href="@{/task-category/list}" class="btn btn-info"></a>
                 </div>
                 <div class="col-md-6 d-flex justify-content-end">
                     <h5 class="mr-3 align-self-center" th:text="${firstName + ' ' + lastName}">Name Surname</h5>
