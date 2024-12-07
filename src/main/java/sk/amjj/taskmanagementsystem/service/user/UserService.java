@@ -15,6 +15,7 @@ import sk.amjj.taskmanagementsystem.exceptions.UsernameTakenException;
 import sk.amjj.taskmanagementsystem.model.entities.User;
 import sk.amjj.taskmanagementsystem.model.repository.IUserRepository;
 import sk.amjj.taskmanagementsystem.service.interfaces.IUserService;
+import sk.amjj.taskmanagementsystem.utils.PasswordUtils;
 
 @Service
 public class UserService implements IUserService {
@@ -26,11 +27,11 @@ public class UserService implements IUserService {
     public List<User> getAll() {
         return this.userRepository.findAll();
     }
-
+    
     @Override
     public User authenticate(UserLoginDto loginInfo) {
         User user = this.userRepository.findByUsername(loginInfo.getUsername());
-        if (user == null || !(user.getPassword().equals(loginInfo.getPassword()))) {
+        if (user == null || !PasswordUtils.verifyPassword(loginInfo.getPassword(), user.getPassword())) {
             return null;
         }
         else {
@@ -47,8 +48,9 @@ public class UserService implements IUserService {
             throw new PasswordsDoNotMatchException();
         }
         User user = new User();
+        String hashedPassword = PasswordUtils.hashPassword(reg.getPassword());
         user.setUsername(reg.getUsername());
-        user.setPassword(reg.getPassword());
+        user.setPassword(hashedPassword);
         user.setFirstName(reg.getFirstName());
         user.setLastName(reg.getLastName());
         user.setEmail(reg.getEmail());
@@ -87,7 +89,7 @@ public class UserService implements IUserService {
     @Override
     public boolean verifyPassword(long id, String password) throws IdNotFoundException {
         User user = this.getById(id);
-        return user.getPassword().equals(password);
+        return PasswordUtils.verifyPassword(password, user.getPassword());
     }
 
     @Override
@@ -96,7 +98,8 @@ public class UserService implements IUserService {
             throw new PasswordsDoNotMatchException();
         }
         User user = this.getById(id);
-        user.setPassword(password);
+        String hashedPassword = PasswordUtils.hashPassword(password);
+        user.setPassword(hashedPassword);
         return this.userRepository.save(user);
     }
 
