@@ -1,0 +1,43 @@
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <title>Task category details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row m-1 justify-content-end">
+            <form id="languageForm" th:action="@{/}" method="get">
+                <select name="localeData" onchange="submitForm()">
+                    <option value="en" th:selected="${#locale.toString() == 'en'}">EN</option>
+                    <option value="es" th:selected="${#locale.toString() == 'es'}">ES</option>
+                    <option value="sk" th:selected="${#locale.toString() == 'sk'}">SK</option>
+                </select>
+            </form>                               
+        </div>
+        <h2 th:text="#{main.headline}">Task management system</h2>
+        <p th:text="#{welcome.message}"></p>
+        <!-- if the user is logged in -->
+        <div th:if="${isLoggedIn}" class="col-6"> 
+            <p th:text="#{logged.in.message}">You are logged in. You can see your tasks on your homepage:</p>
+            <a th:href="@{/home}" th:text="#{go.home.action}" class="btn btn-success">Home</a>
+        </div>
+
+        <!-- if the user is not logged in -->
+        <div th:if="${!isLoggedIn}" class="col-6">
+            <p th:text="#{login.or.register.message}">Please log in or register to start using the app:</p>
+            <a th:href="@{/login}" th:text="#{login.action}" class="btn btn-success mr-2">Login</a>
+            <a th:href="@{/registration}" th:text="#{register.action}" class="btn btn-primary">Register</a>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            document.getElementById("languageForm").submit();
+        }
+    </script>
+</body>
+
+</html>
