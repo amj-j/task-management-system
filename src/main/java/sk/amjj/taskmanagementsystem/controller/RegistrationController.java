@@ -33,7 +33,10 @@ public class RegistrationController {
     }
 
     @GetMapping("/registration")
-    public String showRegistrationForm() {
+    public String showRegistrationForm(HttpSession session) {
+        if (session.getAttribute("loggedInUserId") != null) {
+            return "redirect:/home";
+        }
         return "registration";
     }
 
