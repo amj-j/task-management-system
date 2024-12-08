@@ -4,12 +4,12 @@ This app is a project that I built to practice my Spring boot and webapp develop
 
 I tried to implement Spring security, but I wasn't able to find any tutorial or guide that wasn't way too basic, or way too complicated or deprecated.
 
-## Instalation with Docker
+## Installation with Docker
 
 ### Prerequisites
 You need to have Docker compose installed on your computer.
 
-### Instalation
+### Installation
 1. In your terminal, navigate to the directory inside which you wish to download this repository
 2. Clone this repository using command ```git clone https://github.com/amj-j/task-management-system.git```
 3. Navigate inside the new directory which contains the cloned repository created by the previous command.
@@ -18,8 +18,8 @@ You need to have Docker compose installed on your computer.
 6. Open your browser and type ```localhost:8080``` (or replace ```8080``` with the port you chose in step 4). The index page of the app will open in your browser.
 7. To terminate the app, go back to your terminal and press ```Ctrl + C```. This will kill the Docker compose process.
 
-## Instalation without Docker
+## Installation without Docker
 
 ### Prerequisites
 
-### Instalation
+### Installation
