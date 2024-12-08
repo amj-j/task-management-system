@@ -1,5 +1,5 @@
 # Task Management System
-Task Management System is a web application built using Java Spring Boot, designed to help users manage their tasks. It contains a graphical user web interface to create, read, update, and delete tasks, along with the option to categorize them into ones own categories.
+Task Management System is a web application built using Java and Spring Boot framework, designed to help users manage their tasks. It contains a graphical user web interface to create, read, update, and delete tasks, along with the option to categorize them into ones own categories.
 
 ## My motivation
 In the "Object-Oriented Programming" course at my university, I was given a light indroduction into creating REST API with Spring boot and since I found it interesting, I decided to build this app on my own in the summer of 2023. I decided to create a graphical user web interface instead of REST API, so that I could practice building a whole app with all layers.
