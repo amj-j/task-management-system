@@ -1,4 +1,4 @@
-# Task Management System Web App
+# Task Management System
 Task Management System is a web application built using Java Spring Boot, designed to help users manage their tasks. It contains a graphical user web interface to create, read, update, and delete tasks, along with the option to categorize them into ones own categories.
 
 ## My motivation
